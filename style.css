@@ -41,6 +41,13 @@ canvas {
     
 }
 
+.placeholder{
+    height: 100vh;
+    background-color: rgb(255, 0, 191);
+
+
+
+}
 
 
 

@@ -18,10 +18,13 @@ import SplitType from 'split-type'
 
 
 
+
 import { gsap } from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import { RoughEase, ExpoScaleEase, SlowMo } from "gsap/EasePack";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { q } from 'vanta/src/helpers';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -391,7 +394,7 @@ gsap.to(o,{
 		trigger:".wrapper",
 		markers: true,
 		start:"top top",
-		end:"400%  top",
+		end:"200%  top",
         pin:true,
         pinSpacing: false,
         scrub:true,
@@ -409,27 +412,27 @@ const text = new SplitType('.description-section', { types: 'words, chars' });
 console.log(text.chars);
 const chars = text.chars;
 
-// gsap.from(chars,{
-//     yPercent:130,
-//     opacity:0,
-//     stagger:0.05,
-//     // ease: "back.out",
-//     duration: 1,
+gsap.from(chars,{
+    yPercent:130,
+    opacity:0,
+    stagger:0.05,
+    ease: "back.out",
+    duration: 5,
    
-//     scrollTrigger: {
-//         trigger: '.description-section',
-//         start:"top top",
-//         end:"bottom top",
-//         markers: true,
-//         scrub:true,
-//         pin: true
+    scrollTrigger: {
+        trigger: '.description-section',
+        start:"top top",
+        end:"200% top",
+        markers: true,
+        scrub:true,
+        pin: true
 
-//     }
-
-
+    }
 
 
-// })
+
+
+})
 
 
 
