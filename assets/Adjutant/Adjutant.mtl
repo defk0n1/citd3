@@ -1,0 +1,58 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 24.10.2014 23:52:37
+
+newmtl Material__37
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Новая папка StarCraft II\Assets\Textures\t1_sm_adjutant_diff.dds
+	map_Kd D:\Новая папка StarCraft II\Assets\Textures\t1_sm_adjutant_diff.dds
+
+newmtl Material__36
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Новая папка StarCraft II\Assets\Textures\t1_sm_adjutanthead_diff.dds
+	map_Kd D:\Новая папка StarCraft II\Assets\Textures\t1_sm_adjutanthead_diff.dds
+
+newmtl Material__41
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Новая папка StarCraft II\Assets\Textures\sm_adjutantholostatic01.dds
+	map_Kd D:\Новая папка StarCraft II\Assets\Textures\sm_adjutantholostatic01.dds
+
+newmtl Material__38
+	Ns 10.000000
+	Ni 1.500000
+	d 1.000000
+	Tr 0.000000
+	Tf 1.000000 1.000000 1.000000 
+	illum 2
+	Ka 0.588000 0.588000 0.588000
+	Kd 0.588000 0.588000 0.588000
+	Ks 0.000000 0.000000 0.000000
+	Ke 0.000000 0.000000 0.000000
+	map_Ka D:\Новая папка StarCraft II\Assets\Textures\sm_adjutantholostatic01.dds
+	map_Kd D:\Новая папка StarCraft II\Assets\Textures\sm_adjutantholostatic01.dds
