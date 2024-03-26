@@ -23,7 +23,6 @@ import { gsap } from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import { RoughEase, ExpoScaleEase, SlowMo } from "gsap/EasePack";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { q } from 'vanta/src/helpers';
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -54,13 +53,13 @@ camera.position.z = 0.1;
 
 
 // RENDERER
-const renderer = new THREE.WebGLRenderer({antialias: true});
+const renderer = new THREE.WebGLRenderer({antialias: true,});
 renderer.setSize( sizes.width, sizes.height);
-var wrapper = document.getElementsByClassName('wrapper')[0];
+const wrapper = document.getElementsByClassName('wrapper')[0];
 wrapper.appendChild( renderer.domElement );
 
 
-//ORBITCONTROLS IMPORT
+// ORBITCONTROLS IMPORT
 
 // const controls = new  OrbitControls( camera,renderer.domElement );
 // controls.enableDamping = true;
@@ -88,7 +87,7 @@ const renderPass = new RenderPass(scene, camera);
 effectComposer.addPass(renderPass);
 
 
-const filmPass = new FilmPass(6,false);
+const filmPass = new FilmPass(2,false);
 effectComposer.addPass( filmPass );
 
 
@@ -96,10 +95,10 @@ effectComposer.addPass( filmPass );
  * Add the rgbShift pass to the composer
  * This pass will be responsible for handling the rgbShift effect
  */
-const rgbShiftPass = new ShaderPass(RGBShiftShader);
-rgbShiftPass.uniforms["amount"].value = 0.0001;
+// const rgbShiftPass = new ShaderPass(RGBShiftShader);
+// rgbShiftPass.uniforms["amount"].value = 0.0001;
 
-effectComposer.addPass(rgbShiftPass);
+// effectComposer.addPass(rgbShiftPass);
 
 // const glitchPass = new GlitchPass();
 // console.log(glitchPass);
@@ -114,8 +113,8 @@ effectComposer.addPass(rgbShiftPass);
  * Add the gammaCorrection pass to the composer to fix
  * the color issues
  */ 
-const gammaCorrectionPass = new ShaderPass(GammaCorrectionShader);
-effectComposer.addPass(gammaCorrectionPass);
+// const gammaCorrectionPass = new ShaderPass(GammaCorrectionShader);
+// effectComposer.addPass(gammaCorrectionPass);
 
 const outputPass = new OutputPass();
 effectComposer.addPass( outputPass );
@@ -137,7 +136,7 @@ const fog = new THREE.FogExp2("#000000",4);
 scene.fog = fog;
 
 const particlesGeometry = new THREE.BufferGeometry;
-const particlesCnt = 3000;
+const particlesCnt = 15000;
 
 const posArray = new Float32Array(particlesCnt * 3);
 
@@ -167,12 +166,20 @@ const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
 dracoLoader.setDecoderConfig({ type: 'js' });
 loader.setDRACOLoader(dracoLoader);
-
+let root;
 loader.load('assets/finalpink.glb', function(glb){
 	// console.log(glb);
-	const root = glb.scene;
+	root = glb.scene;
 	root.scale.set(1,1,1);
 	root.position.set(0,0.01,-0.4);
+    root.children.forEach((child)=>{child.material.color = new THREE.Color(0xffffff);
+        child.castShadow = false;
+        child.receiveShadow = false;
+        child.material.emissive = new THREE.Color( 0xFFFFFF);
+        // child.material.emissiveIntensity = new THREE.Intensity( 1000.0 );
+        child.material.metalness = 0;
+        child.material.roughness = 0.2;
+        })
 	root.rotateX(Math.PI /2);
 	scene.add(root);
 }, function(xhr){
@@ -218,41 +225,83 @@ const droidmaterial =  new THREE.MeshStandardMaterial({
 //     }
 // )
 
-// const textLoader = new FontLoader()
-// textLoader.load('assets/fonts/Josefin Sans_Bold.json', function (font) {
-//     const geometry = new TextGeometry('EVENT DESCRIPTION', {
-//         font: font,
-//         size: 80,
-//         height: 7,
-//         curveSegments: 10,
-//         bevelEnabled: false,
-//         bevelOffset: 0,
-//         bevelSegments: 1,
-//         bevelSize: 0.3,
-//         bevelThickness: 1
-//     });
-//     const materials = [
-//         new THREE.MeshPhongMaterial({ color: 0x5B1D76 }), // front
-//         new THREE.MeshPhongMaterial({ color: 0x5B1D76 }) // side
-//     ];
-//     const textMesh2 = new THREE.Mesh(geometry, materials);
-//     textMesh2.castShadow = true;
-//     textMesh2.position.x = 0;
-//     textMesh2.position.y =0 ;
-//     textMesh2.position.z = 0;
-//     console.log(textMesh2);
-//     scene.add(textMesh2);
-// });
+const textLoader = new FontLoader()
+var textMesh2 = new THREE.Mesh();
+textLoader.load('assets/fonts/Roboto Light_Regular.json', function (font) {
+    const tgeometry = new TextGeometry("</>", {
+        font: font,
+        size: 0.03,
+        height: 0.01,
+        curveSegments: 10,
+        bevelEnabled: false,
+        bevelOffset: 0,
+        bevelSegments: 1,
+        bevelSize: 0.3,
+        bevelThickness: 0.001
+    });
+    const materials = [
+        new THREE.MeshBasicMaterial({ color: 0x5B1D76 }), // front
+        new THREE.MeshBasicMaterial({ color: 0x5B1D76 }) // side
+    ];
+    textMesh2 = new THREE.Mesh(tgeometry, materials);
+    textMesh2.castShadow = false;
+	if(window.innerWidth< 800){
+		textMesh2.position.x= -0.029;
+	}else{
+		textMesh2.position.x=0.002;
+        textMesh2.rotateY(-0.4);
+
+	}
+	
+    textMesh2.position.y = -0.01;
+    textMesh2.position.z =  1.2;
+    // console.log(textMesh2);
+    scene.add(textMesh2);
+});
+
+
+let video = document.getElementById("video");
+let videoTexture = new THREE.VideoTexture(video);
+
+videoTexture.minFilter = THREE.LinearFilter;
+videoTexture.magFilter = THREE.LinearFilter;
+
+const movieMaterial = new THREE.MeshBasicMaterial({
+    map: videoTexture,
+    side:THREE.FrontSide,
+    toneMapped: false,
+
+})
+
+let movieGeometry =  new THREE.PlaneGeometry(1, .5, 1);
+let movieScreen = new THREE.Mesh(movieGeometry, movieMaterial);
+
+if(window.innerWidth< 800){
+    movieScreen.position.x= -0.029;
+}else{
+    movieScreen.position.x=0.05 ;
+    // movieScreen.rotateY(-0.4);
+
+}
+movieScreen.position.x = 0
+
+
+
+movieScreen.position.y = 0.;
+movieScreen.position.z =  0.3;
+movieScreen.scale.set(0.09,0.1,0,1);
+scene.add(movieScreen);
+
 
 
 
 // AXES HELPER
-// const axesHelper = new THREE.AxesHelper( 5 );
-// scene.add( axesHelper );
+const axesHelper = new THREE.AxesHelper( 5 );
+scene.add( axesHelper );
 
 
 // MAKING THE GRID PLANE 
-const geometry = new THREE.PlaneGeometry(1, 2, 24, 24);
+const geometry = new THREE.PlaneGeometry(1, 4, 24, 24);
 const material = new THREE.MeshStandardMaterial({
     // Uncomment the following if you wish to visualize the wireframe of our mesh
     // wireframe: true,
@@ -288,7 +337,7 @@ scene.add(plane2);
 
 
 // ADDED AMBIENT LIGHT
-const ambientLight = new THREE.AmbientLight("#ffffff", 10);
+const ambientLight = new THREE.AmbientLight("#5B1D76", 1000);
 scene.add(ambientLight);
 
 const pointLight = new THREE.PointLight("#5B1D76",1000);
@@ -328,20 +377,26 @@ function animate() {
 	const elapsedTime = clock.getElapsedTime();
   	// controls.update();
 	  particlesMesh.rotation.y = -.1 * elapsedTime
-
+	  textMesh2.position.y =  Math.sin(elapsedTime*3) * 0.003 -0.01
+    //   textMesh2.rotateY(0.02);
+      
 	  if (mouseX > 0) {
 		  particlesMesh.rotation.x = -mouseY * (elapsedTime * 0.00005)
 		  particlesMesh.rotation.y = mouseX * (elapsedTime * 0.00005)    
 	  }
-  
 
+			
+	  
   	// plane.position.z = (elapsedTime * 0.015) % 2;
   	// plane2.position.z = ((elapsedTime * 0.015) % 2) - 2;
 
 	// renderer.render( scene, camera );
 
     effectComposer.render();
+    videoTexture.needsUpdate = true;
+
 	requestAnimationFrame( animate ); 
+    // videoTexture.needsUpdate = true;
 	
 }
 
@@ -351,7 +406,9 @@ window.addEventListener('resize', onWindowResize, false)
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix()
+	
     renderer.setSize(window.innerWidth, window.innerHeight)
+
 
     effectComposer.render()
 }
@@ -386,6 +443,7 @@ let oldYValue = 0;
 //     oldYValue = newValue;
 // });
 
+const vidButton = document.getElementsByClassName('vidbutton');
 
 let o ={a:0};
 gsap.to(o,{
@@ -394,13 +452,31 @@ gsap.to(o,{
 		trigger:".wrapper",
 		markers: true,
 		start:"top top",
-		end:"200%  top",
+		end:"133.5%  bottom",
         pin:true,
         pinSpacing: false,
-        scrub:true,
+        scrub:5,
 		onUpdate: (self) =>{
 			// console.log(self.progress);
 			camera.position.z = (self.progress+0.001) *1.7;
+            if(camera.position.z >=0.301 && camera.position.z<0.94){
+                Array.from(vidButton).forEach(function(btn) {
+                    btn.classList.add("vidbutton-shown");
+                 });
+                
+            }else{
+                Array.from(vidButton).forEach(function(btn) {
+                    btn.classList.remove("vidbutton-shown");
+                 });
+			}
+			if(camera.position.z >=1.27){
+				camera.position.z = 1.27;
+                
+			}
+            var cameraWorldPos = new THREE.Vector3();
+			camera.getWorldPosition(cameraWorldPos);
+			console.log(cameraWorldPos);
+			// console.log(textMesh2.position.x);
 		}
 	}
 
@@ -409,11 +485,15 @@ gsap.to(o,{
 
 
 const text = new SplitType('.description-section', { types: 'words, chars' });
-console.log(text.chars);
+// console.log(text.chars);
 const chars = text.chars;
 
+
+
+
+
 gsap.from(chars,{
-    yPercent:130,
+    // yPercent:130,
     opacity:0,
     stagger:0.05,
     ease: "back.out",
@@ -422,10 +502,21 @@ gsap.from(chars,{
     scrollTrigger: {
         trigger: '.description-section',
         start:"top top",
-        end:"200% top",
+        end:"100% top",
         markers: true,
         scrub:true,
-        pin: true
+        pin: true,
+		// onEnterBack: (self) =>{camera.position.z = 0.83;},
+		
+		
+		onUpdate: (self) =>{
+			// camera.position.z = 0.83;
+			// var cameraWorldPos = new THREE.Vector3();
+			// camera.getWorldPosition(cameraWorldPos);
+			// console.log(cameraWorldPos);
+            // video.play();
+			
+		}
 
     }
 
@@ -433,6 +524,20 @@ gsap.from(chars,{
 
 
 })
+
+function toggleMute() {
+
+    var video=document.getElementById("video")
+    
+    if(video.muted){
+        video.muted = false;
+    } else {
+        video.muted = true;
+    }
+    
+    }
+
+
 
 
 

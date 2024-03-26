@@ -14,12 +14,20 @@
    
     <div class="content">
         <div class="wrapper"></div>
+        <div class="vidbutton-wrapper">
+            <button class="vidbutton" onclick="if(video.muted){ video.muted = false;} else {video.muted = true;}" type="button">Mute</button>
+            <button class="vidbutton" onclick="video.pause()" type="button">Pause Video</button>
+            <button class="vidbutton" onclick="video.play()" type="button">Play Video</button><br>
+
+            <br>
+         </div>
         <div class="container-fluid d-flex justify-content-center align-items-center description-section" style="height: 100vh ;background-color: none ">
             <div class="column pr-md-5 pl-md-2 align-items-center">
-                <div style="height:fit-content;" class=" d-flex justify-content-center align-items-center text-center text-md-center">
+                <div style="height:fit-content;" class=" d-flex justify-content-center align-items-center text-lg-left text-md-center">
                     <div>
-                        <h1 id="description-title" class="py-md-3 px-lg-5 mx-9 align section-title">Event Description</h1>
-                        <p class="px-3 px-lg-5 p-md-0 text-center text-lg-left w-70" style="font-size:1.2em" id="big-paragraph">
+                        
+                        <!-- <h1 id="description-title" class="py-md-3 px-lg-5 mx-9 align section-title">Event Description</h1> -->
+                        <p class="px-3 px-lg-5 p-md-0 text-center text-lg-left" style="font-size:1.2em ; width: 100%;" id="big-paragraph">
                             Skilled in web
                             development? Or
                             even looking
@@ -37,9 +45,11 @@
                             programming and development so don't hesitate to join us and learn from each other. The
                             event is free and open to
                             everyone. It's the best place for you to spend a Saturday evening, and dance far into
-                            the night.
+                            the night. 
+
                         </p>
                     </div>
+                    <video id="video" playsinline webkit-playsinline width="1290" height="1040" src="assets/TEASER.mp4" style="display: none;" muted="muted"></video>
                 </div>
             </div>
         </div>
