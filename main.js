@@ -53,7 +53,7 @@ camera.position.z = 0.1;
 
 
 // RENDERER
-const renderer = new THREE.WebGLRenderer({antialias: true,});
+const renderer = new THREE.WebGLRenderer({antialias: false, alpha:false});
 renderer.setSize( sizes.width, sizes.height);
 const wrapper = document.getElementsByClassName('wrapper')[0];
 wrapper.appendChild( renderer.domElement );
@@ -95,14 +95,13 @@ effectComposer.addPass( filmPass );
  * Add the rgbShift pass to the composer
  * This pass will be responsible for handling the rgbShift effect
  */
-// const rgbShiftPass = new ShaderPass(RGBShiftShader);
-// rgbShiftPass.uniforms["amount"].value = 0.0001;
+const rgbShiftPass = new ShaderPass(RGBShiftShader);
+rgbShiftPass.uniforms["amount"].value = 0.0001;
 
-// effectComposer.addPass(rgbShiftPass);
+effectComposer.addPass(rgbShiftPass);
 
-// const glitchPass = new GlitchPass();
-// console.log(glitchPass);
-// console.log(effectComposer);
+// const glitchPass = new GlitchPass(0.002);
+// glitchPass.uniforms['amount'].value = 0.0005;
 // effectComposer.addPass( glitchPass );
 
 
@@ -113,8 +112,8 @@ effectComposer.addPass( filmPass );
  * Add the gammaCorrection pass to the composer to fix
  * the color issues
  */ 
-// const gammaCorrectionPass = new ShaderPass(GammaCorrectionShader);
-// effectComposer.addPass(gammaCorrectionPass);
+const gammaCorrectionPass = new ShaderPass(GammaCorrectionShader);
+effectComposer.addPass(gammaCorrectionPass);
 
 const outputPass = new OutputPass();
 effectComposer.addPass( outputPass );
@@ -245,14 +244,8 @@ textLoader.load('assets/fonts/Roboto Light_Regular.json', function (font) {
     ];
     textMesh2 = new THREE.Mesh(tgeometry, materials);
     textMesh2.castShadow = false;
-	if(window.innerWidth< 800){
-		textMesh2.position.x= -0.029;
-	}else{
-		textMesh2.position.x=0.002;
-        textMesh2.rotateY(-0.4);
-
-	}
-	
+	textMesh2.position.x=-0.029;
+    
     textMesh2.position.y = -0.01;
     textMesh2.position.z =  1.2;
     // console.log(textMesh2);
@@ -270,23 +263,15 @@ const movieMaterial = new THREE.MeshBasicMaterial({
     map: videoTexture,
     side:THREE.FrontSide,
     toneMapped: false,
+    transparent: true
 
 })
 
 let movieGeometry =  new THREE.PlaneGeometry(1, .5, 1);
 let movieScreen = new THREE.Mesh(movieGeometry, movieMaterial);
 
-if(window.innerWidth< 800){
-    movieScreen.position.x= -0.029;
-}else{
-    movieScreen.position.x=0.05 ;
-    // movieScreen.rotateY(-0.4);
 
-}
 movieScreen.position.x = 0
-
-
-
 movieScreen.position.y = 0.;
 movieScreen.position.z =  0.3;
 movieScreen.scale.set(0.09,0.1,0,1);
@@ -387,8 +372,8 @@ function animate() {
 
 			
 	  
-  	// plane.position.z = (elapsedTime * 0.015) % 2;
-  	// plane2.position.z = ((elapsedTime * 0.015) % 2) - 2;
+  	plane.position.z = (elapsedTime * 0.015) % 2;
+  	plane2.position.z = ((elapsedTime * 0.015) % 2) - 2;
 
 	// renderer.render( scene, camera );
 
@@ -474,8 +459,11 @@ gsap.to(o,{
                 
 			}
             var cameraWorldPos = new THREE.Vector3();
+            var meshWorldPos = new THREE.Vector3();
+            textMesh2.getWorldPosition(meshWorldPos);
 			camera.getWorldPosition(cameraWorldPos);
-			console.log(cameraWorldPos);
+			// console.log(cameraWorldPos);
+            console.log(meshWorldPos);
 			// console.log(textMesh2.position.x);
 		}
 	}
@@ -506,7 +494,6 @@ gsap.from(chars,{
         markers: true,
         scrub:true,
         pin: true,
-		// onEnterBack: (self) =>{camera.position.z = 0.83;},
 		
 		
 		onUpdate: (self) =>{
