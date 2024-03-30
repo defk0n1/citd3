@@ -55,8 +55,8 @@ camera.position.z = 0.1;
 // RENDERER
 const renderer = new THREE.WebGLRenderer({antialias: false, alpha:false});
 renderer.setSize( sizes.width, sizes.height);
-const wrapper = document.getElementsByClassName('wrapper')[0];
-wrapper.appendChild( renderer.domElement );
+const landingWrapper = document.getElementsByClassName('landing-wrapper')[0];
+landingWrapper.appendChild( renderer.domElement );
 
 
 // ORBITCONTROLS IMPORT
@@ -276,13 +276,13 @@ movieScreen.position.y = 0.;
 movieScreen.position.z =  0.3;
 movieScreen.scale.set(0.09,0.1,0,1);
 scene.add(movieScreen);
-
+video.controls = true
 
 
 
 // AXES HELPER
-const axesHelper = new THREE.AxesHelper( 5 );
-scene.add( axesHelper );
+// const axesHelper = new THREE.AxesHelper( 5 );
+// scene.add( axesHelper );
 
 
 // MAKING THE GRID PLANE 
@@ -368,20 +368,16 @@ function animate() {
 	  if (mouseX > 0) {
 		  particlesMesh.rotation.x = -mouseY * (elapsedTime * 0.00005)
 		  particlesMesh.rotation.y = mouseX * (elapsedTime * 0.00005)    
-	  }
+	  };
 
 			
 	  
   	plane.position.z = (elapsedTime * 0.015) % 2;
   	plane2.position.z = ((elapsedTime * 0.015) % 2) - 2;
-
-	// renderer.render( scene, camera );
-
     effectComposer.render();
     videoTexture.needsUpdate = true;
 
 	requestAnimationFrame( animate ); 
-    // videoTexture.needsUpdate = true;
 	
 }
 
@@ -398,35 +394,8 @@ function onWindowResize() {
     effectComposer.render()
 }
 
-let oldYValue = 0;
 
-// window.addEventListener('scroll', function(e){
-// 	let currentZ = camera.position.z;
-//     // Get the new Value
-//     var newValue = window.scrollY;
-//     // console.log(camera.position.z);
-//     var zoomSpeed = 5* 0.1;
-//     //Subtract the two and conclude
-//     if(oldYValue - newValue < 0){
-//         // console.log("Up");
-// 		gsap.to(camera.position, {
-// 			z: currentZ+zoomSpeed, duration:0.5
 
-// 		}
-// 		)
-//     } else if(oldYValue - newValue > 0){
-//         // console.log("Down");
-// 		gsap.to(camera.position, {
-// 			z: 0.1, duration:0.5
-
-// 		}
-// 		)
-       
-//     }
-
-//     // Update the old value
-//     oldYValue = newValue;
-// });
 
 const vidButton = document.getElementsByClassName('vidbutton');
 
@@ -434,17 +403,25 @@ let o ={a:0};
 gsap.to(o,{
 	a:1,
 	scrollTrigger:{
-		trigger:".wrapper",
-		markers: true,
+		trigger:".landing-wrapper",
+		markers: false,
 		start:"top top",
-		end:"133.5%  bottom",
+		end:"500.5%  bottom",
         pin:true,
         pinSpacing: false,
         scrub:5,
+        
 		onUpdate: (self) =>{
-			// console.log(self.progress);
+			console.log(self.progress);
 			camera.position.z = (self.progress+0.001) *1.7;
-            if(camera.position.z >=0.301 && camera.position.z<0.94){
+            if(camera.position.z > 0.25 && camera.position.z <0.35 && self.direction>0 ){
+                video.play();
+            };
+            if(camera.position.z > 0.25 && camera.position.z <0.35 && self.direction<0 ){
+                video.pause();
+            };
+
+            if(camera.position.z >0.301 && camera.position.z<0.94){
                 Array.from(vidButton).forEach(function(btn) {
                     btn.classList.add("vidbutton-shown");
                  });
@@ -458,13 +435,8 @@ gsap.to(o,{
 				camera.position.z = 1.27;
                 
 			}
-            var cameraWorldPos = new THREE.Vector3();
-            var meshWorldPos = new THREE.Vector3();
-            textMesh2.getWorldPosition(meshWorldPos);
-			camera.getWorldPosition(cameraWorldPos);
-			// console.log(cameraWorldPos);
-            console.log(meshWorldPos);
-			// console.log(textMesh2.position.x);
+        
+          
 		}
 	}
 
@@ -491,7 +463,7 @@ gsap.from(chars,{
         trigger: '.description-section',
         start:"top top",
         end:"100% top",
-        markers: true,
+        markers: false,
         scrub:true,
         pin: true,
 		
@@ -511,18 +483,6 @@ gsap.from(chars,{
 
 
 })
-
-function toggleMute() {
-
-    var video=document.getElementById("video")
-    
-    if(video.muted){
-        video.muted = false;
-    } else {
-        video.muted = true;
-    }
-    
-    }
 
 
 

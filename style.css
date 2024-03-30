@@ -8,15 +8,13 @@
 html {
     scroll-behavior: smooth;
   }
-  
-  p {
-    font-family: 'MyFont', sans-serif;
-  }
 body {
     margin: 0;
     font-family: monospace;
-    scroll-behavior: smooth;
-    color: white;
+}
+
+#navigation{
+  padding: 2vh 10vw; background-color: rgba(255, 255, 255, 0.042); position: absolute; width: 100%; z-index: 200000000 !important;
 }
 
 canvas {
@@ -26,20 +24,10 @@ canvas {
     height: 100%;
 }
 
-b{
-    font-size: 2em;
-    color: rgb(255, 0, 230);
+.description-section b{
+    font-size: 3em;
+    color: rgb(255, 255, 255);
 }
-
-
-/* .section-title{
-
-
-
-
-
-} */
-
 
 .nav{
     position:fixed;
@@ -49,44 +37,55 @@ b{
     z-index: 100000;
 
 }
-.wrapper{
-    height: 300vh;
+.landing-wrapper{
+    height: 100vh;
     background-color: rgb(255, 255, 255);
 
 }
 
 
- p,h1{
+.description-section p{
     color: rgb(255, 255, 255);
     font-family: 'Josefin Sans', sans-serif;
     font-kerning: none;
-    
-
+    text-shadow: 2px 3px 4px rgb(0, 0, 0);
     
 }
-h1 {
-    font-size: 72px;
+.description-section h1{
+    font-size: 3em;
     background: -webkit-linear-gradient(#bd39c9,#38003b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-family: 'Josefin Sans', sans-serif;
+    font-kerning: none;
+
   }
 
-.placeholder{
-    height: 60vh;
-    background-color: rgba(255, 0, 191, 0);
 
-
-
-}
 
 .vidbutton{
-    display: none;
-    border: none;
-    outline: none;
-    padding: 8px 16;
-    margin: 1em;
-
+  display: none;
+  border: none;
+  outline: none;
+  margin: 1em;
+  font-weight: 100;
+  font-size: 10px;
+  color: #ffffffc9;
+  background: linear-gradient(267deg, #540a942a 0%, #c500cc8a 100%);
+  padding: 9px 11px;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  border-radius: 2px;
+  transition : 0ms;
+  transform: translateY(0);
+  cursor: pointer;
+  
 }
+.vidbutton:focus {
+  outline:none;
+  box-shadow: none;
+}
+
 
 .vidbutton-shown{
     display:flex;
@@ -94,27 +93,23 @@ h1 {
 
 .vidbutton-wrapper{
     position: fixed;
-    bottom: 10px; 
+    bottom: 10%; 
     z-index: 10000;
     display: flex; 
     flex-direction: row;  
     justify-content: center;
     align-items: center; 
-
     width: 100vw;
 
 }
 .description-section{
     background: rgba(255, 255, 255, 0);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
 
 }
 
-.ascii-art {
-    font-family: monospace;
-    white-space: pre;
-}
+
 
 
 /*TEXT GLITCH ANIMATION IN THE DESCRIPTION SECTION */

@@ -5,30 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css"> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>SJE</title>
     <script defer type="module" src="main.js"></script>
     
 </head> 
 <body>
-   
+    <nav id="navigation">
+        <div class="d-flex justify-content-between align-items-center">
+            <a href="" class="logo d-flex align-items-center">
+                <img src="assets/sje_logo.png" alt="" style="height: calc(10px + 8vh);">
+
+            </a>
+            <a id="nav-link-register" onclick="transi()"><button id="register-navbar" class="button accept-btn" style="    width: calc(100px + 2vw);
+                height: 40px;
+                font-family: var(--regular-font);
+                font-size: 0.9rem;
+                text-transform: uppercase;
+                letter-spacing: 2.5px;
+                font-weight: 500;
+                color: #000;
+                background-color: #fff;
+                border: none;
+                border-radius: 45px;
+                box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease 0s;
+                cursor: pointer;
+                outline: none;">Register</button></a>
+        </div>
+    </nav>
     <div class="content">
-        <!-- <div class="nav"></div> -->
-        <div class="wrapper"></div>
+        <div class="landing-wrapper"></div>
         <div class="vidbutton-wrapper">
-            <button class="vidbutton" onclick="if(video.muted){ video.muted = false;} else {video.muted = true;}" type="button">🔈</button>
-            <button class="vidbutton" onclick="video.pause()" type="button">⏸ </button>
-            <button class="vidbutton" onclick="video.play()" type="button">⏵ </button><br>
+            <button class="vidbutton" onclick="if(video.muted){ video.muted = false; } else {video.muted = true;}" type="button"><i class="fa-solid fa-volume-high"></i></button>
+            <button class="vidbutton" onclick="video.pause()" type="button"><i class="fa-solid fa-pause"></i></button>
+            <button class="vidbutton" onclick="video.play()" type="button"><i class="fa-solid fa-play"></i></button><br>
 
             <br>
          </div>
+        <div style="background-color: none; height:300vh;"></div>
         <div class="container-fluid d-flex justify-content-center align-items-center description-section" style="height: 100vh ;background-color: none ">
             <div class="column pr-md-5 pl-md-2 align-items-center">
                 <div style="height:fit-content;" class=" d-flex justify-content-center align-items-center text-lg-center text-md-center">
                     <div>
                         
                         <h1 id="description-title" class="py-md-3 px-lg-5 mx-9 align text-center section-title" style="width: 100%;">Event Description</h1>
-                        <p class="px-5 px-lg-5 p-md-0 py-lg-10 text-center text-lg-center" style="font-size:0.9em ; width: 100%;" id="big-paragraph">
+                        <p class="px-lg-5 p-md-0 py-lg-10 text-center text-lg-center" style="font-size:0.9em ; width: 100%;" id="big-paragraph">
                             Skilled in web
                             development? Or
                             even looking
@@ -36,10 +58,9 @@
                             emancipation? <br>"SUP'COM JUNIOR
                             ENTREPRISE" is announcing
                             its
-                            outstanding event<br> <br><b class="hero glitch layers" data-text="近設計近 設計 近設計 近">CODE IN THE DARK</b><br> <br>for its 3rd edition, which will take place
-                            on February
-                            11, 2022, at SUP'COM.
-                            <!-- <b class="hero glitch layers" data-text="近設計近 設計 近設計 近">"CODE IN THE DARK"</b> -->If you have a keen interest in
+                            outstanding event<br> <br><b class="hero glitch layers" data-text="近設計近 設計 近設計 近">CODE IN THE DARK</b><br> <br>for its 4th edition, which will take place
+                            on 27th of April, at SUP'COM.
+                            If you have a keen interest in
                             programming and development, don't hesitate to join us. <br>The
                             event is free and open to
                             everyone. It's the best place for you to spend a Saturday evening, and dance far into
@@ -55,7 +76,7 @@
         </div>
 
     </div>
-    
+    <div style="background-color: aqua; height: 100vh;"></div>
 </body>
 </html>
 
