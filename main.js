@@ -372,8 +372,8 @@ function animate() {
 
 			
 	  
-  	plane.position.z = (elapsedTime * 0.015) % 2;
-  	plane2.position.z = ((elapsedTime * 0.015) % 2) - 2;
+  	// plane.position.z = (elapsedTime * 0.015) % 2;
+  	// plane2.position.z = ((elapsedTime * 0.015) % 2) - 2;
     effectComposer.render();
     videoTexture.needsUpdate = true;
 
@@ -466,6 +466,8 @@ gsap.from(chars,{
         markers: false,
         scrub:true,
         pin: true,
+        anticipatePin: 1,
+        
 		
 		
 		onUpdate: (self) =>{
